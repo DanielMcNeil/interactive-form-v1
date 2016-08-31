@@ -70,7 +70,7 @@ legend {
 	width: 100%;
 }
 
-label {
+label, p {
 	color: #000;
 	display: block;
 	margin-bottom: .5em;
@@ -113,6 +113,13 @@ button:hover {
 	background: #184c62;
 }
 
+#total {
+	width: 4.0em;
+	padding: 0.2em;
+	margin-left: 0.5em;
+	text-align: center;
+}
+
 /* ================================= 
   Page Styles
 ==================================== */
@@ -147,6 +154,10 @@ button:hover {
   content: " ";
   display: table;
   clear: both;
+}
+
+.greyed-out {
+	color: #777;
 }
 
 /* ================================= 
