@@ -76,3 +76,20 @@ $('.activities input').click(function(){
     $('input[name=js-libs]').parent().removeClass('greyed-out');
   }
 });
+
+// display credit card, paypal, or bitcoin information depending on user choice (credit card is default)
+$('#payment').change(function(){
+  if ($(this).val() === "credit card") {
+    $('#paypal').hide();
+    $('#bitcoin').hide();
+    $('#credit-card').show();
+  } else if ($(this).val() === "paypal") {
+    $('#credit-card').hide();
+    $('#bitcoin').hide();
+    $('#paypal').show();
+  } else if ($(this).val() === "bitcoin") {
+    $('#credit-card').hide();
+    $('#paypal').hide();
+    $('#bitcoin').show();
+  }
+});
