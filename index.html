@@ -21,10 +21,10 @@
         <legend>Basic Info</legend>
         
         <label for="name">Name:</label>
-        <input type="text" id="name" name="user_name" autofocus>
+        <input type="text" id="name" name="user_name" value="" autofocus>
         
         <label for="mail">Email:</label>
-        <input type="email" id="mail" name="user_email">
+        <input type="email" id="mail" name="user_email" value="">
         
         <label>Job Role</label>
         <select id="title" name="user_title">
@@ -36,7 +36,7 @@
           <option value="other">Other</option>  
         </select>
         <label id="otherRole" class="is-hidden" for="other-title">Please enter your job role:
-          <input type="text" id="other-title" placeholder="Your Title">
+          <input type="text" id="other-title" placeholder="Your Title" value="">
         </label>
       </fieldset>
       
@@ -56,7 +56,7 @@
         <div>
           <label for="design">Design:</label>
           <select id="design" name="user_design">
-            <option>Select Theme</option>
+            <option value="">Select Theme</option>
             <option value="js puns">Theme - JS Puns</option>
             <option value="heart js">Theme - I &#9829; JS</option>
           </select>
@@ -80,12 +80,13 @@
         <label><input type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>
         <label>Total: <input id="total" type="text" disabled></label>
       </fieldset>
-      <fieldset>
+      <fieldset class="paymentMethod">
         <legend>Payment Info</legend>
 
         <label for="payment">I'm going to pay with:</label>
         <select id="payment" name="user_payment">
-          <option value="credit card">Credit Card</option>
+          <option value="">Select Payment Type</option>
+          <option value="credit card" selected>Credit Card</option>
           <option value="paypal">PayPal</option>
           <option value="bitcoin">Bitcoin</option>
         </select>
@@ -94,17 +95,17 @@
 
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
-        	  <input id="cc-num" name="user_cc-num" type="text">
+        	  <input id="cc-num" name="user_cc-num" type="text" value="">
           </div>
 
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
-            <input id="zip" name="user_zip" type="text"> 
+            <input id="zip" name="user_zip" type="text" value=""> 
           </div>
 
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
-            <input id="cvv" name="user_cvv" type="text"> 
+            <input id="cvv" name="user_cvv" type="text" value=""> 
           </div>
 
           <label>Expiration Date:</label>
@@ -131,12 +132,16 @@
           </select> 	                  	         
         </div>
 
-        <div>
-        	<p id="paypal" class="is-hidden">If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
+        <div id="paypal" class="is-hidden">
+        	<p>If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
         </div> 
 
-        <div>
-        	<p id="bitcoin" class="is-hidden">If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
+        <div id="bitcoin" class="is-hidden">
+        	<p>If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
+        </div>
+
+        <div id="noSelection" class="is-hidden">
+          <p>Please select a payment option</p>
         </div>                  
 
       </fieldset>        

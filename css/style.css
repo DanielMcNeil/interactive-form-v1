@@ -13,7 +13,7 @@ button {
 }
 
 body {
-  font: 1em/1.5;
+  font: 1em/1.5em;
   color: #184f68;
 	background: #accbd9;
 }
@@ -158,6 +158,16 @@ button:hover {
 
 .greyed-out {
 	color: #777;
+}
+
+.error {
+	color: firebrick;
+	font-size: 1.0rem;
+	font-weight: 400;
+}
+
+.error + input, .error > input {
+	outline: 1px solid firebrick;
 }
 
 /* ================================= 

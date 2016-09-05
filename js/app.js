@@ -77,19 +77,85 @@ $('.activities input').click(function(){
   }
 });
 
-// display credit card, paypal, or bitcoin information depending on user choice (credit card is default)
+// display credit card, paypal, bitcoin information, or prompt for payment information depending on user choice (credit card is default)
 $('#payment').change(function(){
-  if ($(this).val() === "credit card") {
-    $('#paypal').hide();
-    $('#bitcoin').hide();
-    $('#credit-card').show();
-  } else if ($(this).val() === "paypal") {
-    $('#credit-card').hide();
-    $('#bitcoin').hide();
-    $('#paypal').show();
-  } else if ($(this).val() === "bitcoin") {
-    $('#credit-card').hide();
-    $('#paypal').hide();
-    $('#bitcoin').show();
+  $('.paymentMethod div').hide();
+    if ($('#payment').val() === "credit card") {
+      $('#credit-card').show();
+      $('#credit-card').children().show();
+    } else if ($('#payment').val() === "paypal") {
+      $('#paypal').show();
+    } else if ($('#payment').val() === "bitcoin") {
+      $('#bitcoin').show();
+    } else if ($('#payment').val() === "") {
+      $('#noSelection').show();
+    }
+  });
+
+// form validation
+
+  // number of activities checked
+function activitiesChecked() {
+  var checked = 0
+  $('.activities input[type=checkbox]').each(function(){
+    if ($(this).prop('checked')) {
+      checked ++;
+    }
+  });
+  return checked
+}
+
+$('form').submit(function(event){
+  // prevent submission of form if any info is missing
+  if ($('#name').prop('value') === "" || $('#mail').prop('value') === "" || 
+     ($('#title').val() === "other" && $('#other-title').prop('value') === "") || 
+     $('#design').val() === "" || activitiesChecked() === 0 || $('#payment').val() === "" || 
+     ($('#payment').val() === "credit card" && ($('#cc-num').prop('value') === "" || $('#zip').prop('value') === "" || $('#cvv').prop('value') === "" ))) {
+    event.preventDefault();
+  }
+  
+  // add error class and message for form fields if required information is missing (or remove it if information is provided)
+  if ($('#name').prop('value') === "") {
+    $('label[for=name]').html('Name: (please provide your name)').addClass('error');
+  } else {
+    $('label[for=name]').html('Name:').removeClass('error');
+  }
+
+  if ($('#mail').prop('value') === "") {
+    $('label[for=mail]').html('Email: (please provide your email address)').addClass('error');
+  } else {
+    $('label[for=mail]').html('Email:').removeClass('error');
+  }
+
+  if ($('#title').val() === "other" && $('#other-title').prop('value') === "") {
+    $('label[for=other-title]').addClass('error');
+  } else {
+    $('label[for=other-title]').removeClass('error');
+  }
+
+  if ($('#design').val() === "") {
+    $('.shirt legend').html("T-Shirt Info<br><label class='error'>Don't forget to pick a T-Shirt");
+  } else {
+    $('.shirt legend').html('T-Shirt Info');
+  }
+
+  if (activitiesChecked() === 0) {
+    $('.activities legend').html("Register for Activities<br><label class='error'>Please choose at least 1 activity");
+  } else {
+    $('.activities legend').html('Register for Activities');
+  }
+
+  $('#credit-card div input').each(function(){
+    if ($(this).prop('value') === "") {
+      $(this).parent().addClass('error');
+    } else {
+      $(this).parent().removeClass('error');
+    }
+  });
+
+  if ($('#payment').val() === "") {
+    $('#noSelection > p').addClass('error');
+  } else {
+    $('#noSelection > p').removeClass('error');
   }
 });
