@@ -1,5 +1,9 @@
 'use strict';
 
+// elements to initially hide.  They will appear based on selections, or if the user has JavaScript disabled.
+$('label[for=size]').parent().hide();
+$('#colors-js-puns').hide();
+
 // show job role input element if 'other' is choosen from the Job Role select element
 $('#title').change(function(){
   if ($(this).val() === "other") {
@@ -18,14 +22,20 @@ var iHeartJS = '<option value="tomato">Tomato (I &#9829; JS shirt only)</option>
 iHeartJS += '<option value="steelblue">Steel Blue (I &#9829; JS shirt only)</option>'
 iHeartJS += '<option value="dimgrey">Dim Grey (I &#9829; JS shirt only)</option>'
 
-// insert appropriate code block into the t-shirt color select element 
+// insert appropriate code block into the t-shirt color select element and show size and color
 $('#design').change(function(){
   if ($(this).val() === 'js puns') {
     $('#color').html(jsPuns);
+    $('label[for=size]').parent().show();
+    $('#colors-js-puns').show();
   } else if ($(this).val() === 'heart js') {
     $('#color').html(iHeartJS);
+    $('label[for=size]').parent().show();
+    $('#colors-js-puns').show();
   } else {
     $('#color').html('');
+    $('label[for=size]').parent().hide();
+    $('#colors-js-puns').hide();
   }
 });
 
