@@ -84,7 +84,7 @@ select {
 input {
 	font-size: 1em;
 	font-weight: 500;
-	padding: .8em;
+	padding: 0.8em;
 	background: #c1deeb;
 	border: 2px solid #c1deeb;
 	outline: none;
@@ -111,6 +111,18 @@ button {
 
 button:hover {
 	background: #184c62;
+}
+
+i {
+	font-size: 1.4em !important;
+}
+
+#otherRole {
+	margin-top: 1.125em;
+}
+
+#other-title {
+	margin-top: 0.5em;
 }
 
 #total {
@@ -168,6 +180,23 @@ button:hover {
 
 .error + input, .error > input {
 	outline: 1px solid firebrick;
+}
+
+.no-bottom-border {
+	border-bottom: none !important;
+	padding-bottom: 0.92em !important;
+}
+
+#exp-monthSelectBoxIt, #exp-yearSelectBoxIt {
+	display: inline-block;
+}
+
+#exp-yearSelectBoxIt {
+	margin-left: 0.8em;
+}
+
+#exp-monthSelectBoxItOptions, #exp-yearSelectBoxItOptions {
+	margin-top: -4px;
 }
 
 /* ================================= 

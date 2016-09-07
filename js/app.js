@@ -13,27 +13,27 @@ $('#title').change(function(){
   }
 });
 
-// t-shirt theme code blocks
-var jsPuns = '<option value="cornflowerblue">Cornflower Blue (JS Puns shirt only)</option>'
-jsPuns += '<option value="darkslategrey">Dark Slate Grey (JS Puns shirt only)</option>'
-jsPuns +='<option value="gold">Gold (JS Puns shirt only)</option>'
-
-var iHeartJS = '<option value="tomato">Tomato (I &#9829; JS shirt only)</option>'
-iHeartJS += '<option value="steelblue">Steel Blue (I &#9829; JS shirt only)</option>'
-iHeartJS += '<option value="dimgrey">Dim Grey (I &#9829; JS shirt only)</option>'
-
 // insert appropriate code block into the t-shirt color select element and show size and color
 $('#design').change(function(){
   if ($(this).val() === 'js puns') {
-    $('#color').html(jsPuns);
+    $('.jspun').show();
+    $('.iheartjs').hide();
+    $('#colorSelectBoxItText').prop('data-val','cornflowerblue');
+    $('#colorSelectBoxItText').html('CornFlower Blue (JS Puns shirt only)');
     $('label[for=size]').parent().show();
     $('#colors-js-puns').show();
   } else if ($(this).val() === 'heart js') {
-    $('#color').html(iHeartJS);
+    $('.jspun').hide();
+    $('.iheartjs').show();
+    $('#colorSelectBoxItText').prop('data-val','tomato');
+    $('#colorSelectBoxItText').html('Tomato (I &#9829; JS shirt only)');
     $('label[for=size]').parent().show();
     $('#colors-js-puns').show();
   } else {
-    $('#color').html('');
+    $('.jspun').hide();
+    $('.iheartjs').hide();
+    $('#colorSelectBoxItText').prop('data-val','');
+    $('#colorSelectBoxItText').html('');
     $('label[for=size]').parent().hide();
     $('#colors-js-puns').hide();
   }
@@ -168,4 +168,56 @@ $('form').submit(function(event){
   } else {
     $('#noSelection > p').removeClass('error');
   }
+});
+
+$(document).ready(function(){
+  //Calls the selectBoxIt method on your HTML select box.
+  $("select").selectBoxIt();
+
+  // fixes difference in width between the select box and the options box after applying the jQuery selectBoxIt plugin
+  // takes the (inline style) width of the select box and sets the (inline style) min-width of the options box to that width
+  $('.selectboxit-btn').each(function(){
+    var selectStyle = $(this).prop('style');
+    var selectWidth = selectStyle.width;
+    var optionStyle = $(this).next().prop('style');
+    optionStyle['min-width'] = selectWidth;
+  });
+
+  // move the dropdown for the expiration year over so that it is under the select box
+  var expMonthWidth = parseFloat($('#exp-monthSelectBoxIt').prop('style').width);
+  expMonthWidth += 16.8;
+  var expYearMargin = expMonthWidth + 'px';
+  $('#exp-yearSelectBoxItOptions').css('margin-left',expYearMargin);
+
+  // add custom arrows to the select boxes
+
+  $('.selectboxit > .selectboxit-option-icon-container > i').addClass('fa fa-arrow-circle-o-down');
+
+  // style changes for select box on click
+  $('.selectboxit-container').click(function() {
+    $(this).children().removeClass('no-bottom-border');
+
+    // remove bottom border from select box if it is open
+    if ($(this).children('.selectboxit-list').attr('aria-hidden','false')) {
+      $(this).children('.selectboxit').addClass('no-bottom-border');
+    }
+    
+    // put bottom border back on select box after choosing an option
+    // puts the down arrow back in the select box after choosing an option
+    $(this).prev().change(function() {
+      $(this).next().children().removeClass('no-bottom-border');
+      $('.selectboxit > .selectboxit-option-icon-container > i').addClass('fa fa-arrow-circle-o-down');
+    });
+
+    // puts bottom border back on select box if user clicks away without choosing an option and then hovers back over the select box
+    $(this).hover(function() {
+      if ($(this).children('.selectboxit').hasClass('no-bottom-border') && !$(this).children('.selectboxit').hasClass('selectboxit-open')) {
+        $(this).children().removeClass('no-bottom-border');
+      }
+    });
+
+    // select boxes only open down (opening up breaks style; side affect of using selectBoxIt)
+    var downOnly = $(this).children('.selectboxit-list').prop('style');
+    downOnly.top = 'auto';
+  });
 });
