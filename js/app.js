@@ -3,6 +3,7 @@
 // elements to initially hide.  They will appear based on selections, or if the user has JavaScript disabled.
 $('label[for=size]').parent().hide();
 $('#colors-js-puns').hide();
+$('#otherRole').hide();
 
 // show job role input element if 'other' is choosen from the Job Role select element
 $('#title').change(function(){
@@ -92,7 +93,7 @@ $('#payment').change(function(){
   $('.paymentMethod div').hide();
     if ($('#payment').val() === "credit card") {
       $('#credit-card').show();
-      $('#credit-card').children().show();
+      $('#credit-card').children('div').show();
     } else if ($('#payment').val() === "paypal") {
       $('#paypal').show();
     } else if ($('#payment').val() === "bitcoin") {
