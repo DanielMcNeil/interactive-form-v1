@@ -1,4 +1,4 @@
-'use strict';
+'use strict()';
 
 // elements to initially hide.  They will appear based on selections, or if the user has JavaScript disabled.
 $('label[for=size]').parent().hide();
@@ -106,67 +106,101 @@ $('#payment').change(function(){
 
   // number of activities checked
 function activitiesChecked() {
-  var checked = 0
+  var checked = 0;
   $('.activities input[type=checkbox]').each(function(){
     if ($(this).prop('checked')) {
       checked ++;
     }
   });
-  return checked
+  return checked;
 }
 
 $('form').submit(function(event){
-  // prevent submission of form if any info is missing
+  // check for valid credit card number and prevent form submission and show error message if invalid
+  var ccNumber = $('#cc-num').prop('value');
+  var numberArray = ccNumber.split('').map(Number);
+  var checkDigit = numberArray[numberArray.length - 1];
+  numberArray.pop();
+  numberArray.reverse();
+  var arrayTotal = 0;
+  for (var n = 0; n < numberArray.length; ++n) {
+    if (numberArray[n] % 2 !== 0) {
+      numberArray[n] *= 2;
+    }
+    if (numberArray[n] > 9) {
+      numberArray[n] -= 9;
+    }
+    arrayTotal += numberArray[n];
+  }
+  if (arrayTotal % 10 !== checkDigit) {
+    event.preventDefault();
+    $('label[for=cc-num]').addClass('error');
+    $('.cc').removeClass('is-hidden');
+  } else {
+    $('.cc').addClass('is-hidden');
+    $('label[for=cc-num]').removeClass('error');
+  }
+  
+  // prevent submission of form if any required information is missing
   if ($('#name').prop('value') === "" || $('#mail').prop('value') === "" || 
      ($('#title').val() === "other" && $('#other-title').prop('value') === "") || 
      $('#design').val() === "" || activitiesChecked() === 0 || $('#payment').val() === "" || 
-     ($('#payment').val() === "credit card" && ($('#cc-num').prop('value') === "" || $('#zip').prop('value') === "" || $('#cvv').prop('value') === "" ))) {
+     ($('#payment').val() === "credit card" && ($('#cc-num').prop('value') === "" || 
+     $('#zip').prop('value').length < 5 || $('#cvv').prop('value').length < 3))) {
     event.preventDefault();
-  }
   
-  // add error class and message for form fields if required information is missing (or remove it if information is provided)
-  if ($('#name').prop('value') === "") {
-    $('label[for=name]').html('Name: (please provide your name)').addClass('error');
-  } else {
-    $('label[for=name]').html('Name:').removeClass('error');
-  }
-
-  if ($('#mail').prop('value') === "") {
-    $('label[for=mail]').html('Email: (please provide your email address)').addClass('error');
-  } else {
-    $('label[for=mail]').html('Email:').removeClass('error');
-  }
-
-  if ($('#title').val() === "other" && $('#other-title').prop('value') === "") {
-    $('label[for=other-title]').addClass('error');
-  } else {
-    $('label[for=other-title]').removeClass('error');
-  }
-
-  if ($('#design').val() === "") {
-    $('.shirt legend').html("T-Shirt Info<br><label class='error'>Don't forget to pick a T-Shirt");
-  } else {
-    $('.shirt legend').html('T-Shirt Info');
-  }
-
-  if (activitiesChecked() === 0) {
-    $('.activities legend').html("Register for Activities<br><label class='error'>Please choose at least 1 activity");
-  } else {
-    $('.activities legend').html('Register for Activities');
-  }
-
-  $('#credit-card div input').each(function(){
-    if ($(this).prop('value') === "") {
-      $(this).parent().addClass('error');
+    // add error class and message for form fields if required information is missing (or remove it if information is provided)
+    if ($('#name').prop('value') === "") {
+      $('label[for=name]').html('Name: <span>(please provide your name)</span>').addClass('error');
     } else {
-      $(this).parent().removeClass('error');
+      $('label[for=name]').html('Name:').removeClass('error');
     }
-  });
 
-  if ($('#payment').val() === "") {
-    $('#noSelection > p').addClass('error');
-  } else {
-    $('#noSelection > p').removeClass('error');
+    if ($('#mail').prop('value') === "") {
+      $('label[for=mail]').html('Email: <span>(please provide your email address)</span>').addClass('error');
+    } else {
+      $('label[for=mail]').html('Email:').removeClass('error');
+    }
+
+    if ($('#title').val() === "other" && $('#other-title').prop('value') === "") {
+      $('label[for=other-title]').addClass('error');
+    } else {
+      $('label[for=other-title]').removeClass('error');
+    }
+
+    if ($('#design').val() === "") {
+      $('.shirt legend').html("T-Shirt Info<br><label class='error'><span>Don't forget to pick a T-Shirt</span>");
+    } else {
+      $('.shirt legend').html('T-Shirt Info');
+    }
+
+    if (activitiesChecked() === 0) {
+      $('.activities legend').html("Register for Activities<br><label class='error'><span>Please choose at least 1 activity</span>");
+    } else {
+      $('.activities legend').html('Register for Activities');
+    }
+
+    if ($('#zip').prop('value').length < 5) {
+      $('#zip').prev().addClass('error');
+      $('.zip').removeClass('is-hidden');
+    } else {
+      $('#zip').prev().removeClass('error');
+      $('.zip').addClass('is-hidden');
+    }
+    
+    if ($('#cvv').prop('value').length < 3) {
+      $('#cvv').prev().addClass('error');
+      $('.cvv').removeClass('is-hidden');
+    } else {
+      $('#cvv').prev().removeClass('error');
+      $('.cvv').addClass('is-hidden');
+    }
+
+    if ($('#payment').val() === "") {
+      $('#noSelection > p').addClass('error');
+    } else {
+      $('#noSelection > p').removeClass('error');
+    }
   }
 });
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -100,20 +100,22 @@
         </select>
 
         <div id="credit-card" class="credit-card">
-
+          <p class="cc error is-hidden">That is not a valid credit card number.  Please check the number and try again.</p>
+          <p class="zip error is-hidden">Please enter a valid Zip Code.</p>
+          <p class="cvv error is-hidden">Please enter a valid CVV number.</p>
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
-        	  <input id="cc-num" name="user_cc-num" type="text" value="">
+        	  <input id="cc-num" name="user_cc-num" type="text" value="" maxlength="16">
           </div>
 
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
-            <input id="zip" name="user_zip" type="text" value=""> 
+            <input id="zip" name="user_zip" type="text" value="" maxlength="5"> 
           </div>
 
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
-            <input id="cvv" name="user_cvv" type="text" value=""> 
+            <input id="cvv" name="user_cvv" type="text" value="" maxlength="3"> 
           </div>
 
           <label>Expiration Date:</label>

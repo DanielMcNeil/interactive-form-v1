@@ -132,6 +132,30 @@ i {
 	text-align: center;
 }
 
+#exp-monthSelectBoxIt, #exp-yearSelectBoxIt {
+	display: inline-block;
+}
+
+#exp-yearSelectBoxIt {
+	margin-left: 0.8em;
+}
+
+#exp-monthSelectBoxItOptions, #exp-yearSelectBoxItOptions {
+	margin-top: -4px;
+}
+
+.cc {
+	margin-bottom: 0;
+}
+
+.zip {
+	margin: 0;
+}
+
+.cvv {
+	margin-top: 0;
+}
+
 /* ================================= 
   Page Styles
 ==================================== */
@@ -178,6 +202,10 @@ i {
 	font-weight: 400;
 }
 
+.error span, p.error {
+	font-size: 0.8rem;
+}
+
 .error + input, .error > input {
 	outline: 1px solid firebrick;
 }
@@ -185,18 +213,6 @@ i {
 .no-bottom-border {
 	border-bottom: none !important;
 	padding-bottom: 0.92em !important;
-}
-
-#exp-monthSelectBoxIt, #exp-yearSelectBoxIt {
-	display: inline-block;
-}
-
-#exp-yearSelectBoxIt {
-	margin-left: 0.8em;
-}
-
-#exp-monthSelectBoxItOptions, #exp-yearSelectBoxItOptions {
-	margin-top: -4px;
 }
 
 /* ================================= 
