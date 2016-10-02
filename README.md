@@ -1,11 +1,11 @@
 # Interactive Form V1
-Full stack javascript techdegree project 3
+Full stack JavaScript Techdegree project 3
 
 JavaScript validated with JSHint
 
 HTML and CSS validated with W3C validator
 
-Checked for cross browser comptability with Firefox, Chrome, Edge, and IE 11
+Checked for cross browser compatibility with Firefox, Chrome, Edge, and IE 11
 
 **Note:** 
 After reading the article about email validation with regular expressions I decided to use the HTML 5 default (type="email" on the input) 
